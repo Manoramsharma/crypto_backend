@@ -1,0 +1,36 @@
+{
+  "files": {
+    "main.css": "/static/css/main.fa16f3e8.chunk.css",
+    "main.js": "/static/js/main.4098736c.chunk.js",
+    "main.js.map": "/static/js/main.4098736c.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.7545a8a1.js",
+    "runtime-main.js.map": "/static/js/runtime-main.7545a8a1.js.map",
+    "static/css/2.5b1a93c9.chunk.css": "/static/css/2.5b1a93c9.chunk.css",
+    "static/js/2.a184db09.chunk.js": "/static/js/2.a184db09.chunk.js",
+    "static/js/2.a184db09.chunk.js.map": "/static/js/2.a184db09.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/2.5b1a93c9.chunk.css.map": "/static/css/2.5b1a93c9.chunk.css.map",
+    "static/css/main.fa16f3e8.chunk.css.map": "/static/css/main.fa16f3e8.chunk.css.map",
+    "static/js/2.a184db09.chunk.js.LICENSE.txt": "/static/js/2.a184db09.chunk.js.LICENSE.txt",
+    "static/media/404.a89ac2d4.png": "/static/media/404.a89ac2d4.png",
+    "static/media/Loginimg.5c3abf82.jpg": "/static/media/Loginimg.5c3abf82.jpg",
+    "static/media/Signupimg.95ed14af.jpg": "/static/media/Signupimg.95ed14af.jpg",
+    "static/media/editProfile.f837ab83.svg": "/static/media/editProfile.f837ab83.svg",
+    "static/media/forgotPassword.a48e161e.svg": "/static/media/forgotPassword.a48e161e.svg",
+    "static/media/forgotpass.b01f9e05.svg": "/static/media/forgotpass.b01f9e05.svg",
+    "static/media/undraw_Add_post_re_174w.acd16496.svg": "/static/media/undraw_Add_post_re_174w.acd16496.svg",
+    "static/media/undraw_Mobile_payments_re_7udl.a2370a6f.svg": "/static/media/undraw_Mobile_payments_re_7udl.a2370a6f.svg",
+    "static/media/undraw_On_the_way_re_swjt.f8e3e2bc.svg": "/static/media/undraw_On_the_way_re_swjt.f8e3e2bc.svg",
+    "static/media/undraw_Online_shopping_re_k1sv.f685dfd8.svg": "/static/media/undraw_Online_shopping_re_k1sv.f685dfd8.svg",
+    "static/media/undraw_social_friends_nsbv.77068e90.svg": "/static/media/undraw_social_friends_nsbv.77068e90.svg",
+    "static/media/undraw_stepping_up_g6oo.649660b7.svg": "/static/media/undraw_stepping_up_g6oo.649660b7.svg",
+    "static/media/undraw_wallet_aym5.b2714bbb.svg": "/static/media/undraw_wallet_aym5.b2714bbb.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.7545a8a1.js",
+    "static/css/2.5b1a93c9.chunk.css",
+    "static/js/2.a184db09.chunk.js",
+    "static/css/main.fa16f3e8.chunk.css",
+    "static/js/main.4098736c.chunk.js"
+  ]
+}

@@ -1,0 +1,450 @@
+openapi: 3.0.1
+info:
+  title: sarvh-website-backend
+  description: Backend for SARVH Website
+  version: 1.0.0
+servers:
+  - url: /api
+tags:
+  - name: Users
+    description: Operations related to users
+  - name: Products
+    description: Operatons related to products
+
+paths:
+  /users/register:
+    post:
+      tags:
+        - Users
+      servers:
+        - url: /
+      description: Register user
+      requestBody:
+        description: fullname, username, email, password, gender
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterBody'
+        required: true
+      responses:
+        200:
+          description: Return token and success message
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        400:
+          description: User not found / Password is not valid / Username already in use / Email already exist
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        401:
+          description: Incorrect Password
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Could not login
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /users/login:
+    post:
+      tags:
+        - Users
+      servers:
+        - url: /
+      description: Log a user in
+      requestBody:
+        description: Email and Password
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginBody'
+        required: true
+      responses:
+        200:
+          description: Return token and success message
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        400:
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        401:
+          description: Invalid Password
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Could not login
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /users/password:
+    put:
+      tags:
+        - Users
+      servers:
+        - url: /
+      description: Change user's password
+      security:
+        - Bearer: []
+      requestBody:
+        description: Current Password and New Password
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangePasswordBody'
+        required: true
+      responses:
+        200:
+          description: Return success message
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+        400:
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        401:
+          description: Invalid Password
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /users/forgotPassword:
+    post:
+      tags:
+        - Users
+      servers:
+        - url: /
+      description: Forgot user's password
+      requestBody:
+        description: Roll number
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ForgotPasswordBody'
+        required: true
+      responses:
+        200:
+          description: Reset Email Sent Success Message Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForogtPasswordResponse'
+        400:
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /users/resetPassword:
+    post:
+      tags:
+        - Users
+      servers:
+        - url: /
+      description: Reset user's password
+      requestBody:
+        description: Roll number, OTP, new password and confirm password
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResetPasswordBody'
+        required: true
+      responses:
+        200:
+          description: Password reset success message
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResetPasswordResponse'
+        400:
+          description: User not found/ Invalid OTP/ Invalid Password/ Request for a new OTP first
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/product:
+    put:
+      tags:
+        - Products
+      servers:
+        - url: /
+      description: Upload product
+      security:
+        - Bearer: []
+      requestBody:
+        description: productName, price, mrp, productDescription, productFeatures, category, subCategory, file
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UploadProduct'
+        required: true
+      responses:
+        200:
+          description: success message
+
+  /api/product/{id}:
+    get:
+      tags:
+        - Products
+      servers:
+        - url: /
+      description: Get products of user
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: id of user
+      responses:
+        200:
+          description: success message
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: product fetched
+                additionalProperties: true
+
+  /api/byproductid/{id}:
+    get:
+      tags:
+        - Products
+      servers:
+        - url: /
+      description: Get product by its id
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: id of product
+      responses:
+        200:
+          description: success message
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Product fetched
+                additionalProperties: true
+
+  /api/topProducts:
+    get:
+      tags:
+        - Products
+      servers:
+        - url: /
+      description: Get top 5 recent products
+      responses:
+        200:
+          description: success message
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Product fetched
+                additionalProperties: true
+
+components:
+  securitySchemes:
+    Bearer:
+      type: http
+      scheme: bearer
+      description: Provide a valid JWT token
+
+  schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+      additionalProperties: true
+
+    MessageResponse:
+      type: object
+      properties:
+        message:
+          type: string
+
+    LoginBody:
+      required:
+        - email
+        - password
+      type: object
+      properties:
+        email:
+          type: string
+          example: test@sarvh.com
+        password:
+          type: string
+          example: yourPassword
+
+    LoginResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+          example: ey.......9X
+        message:
+          type: string
+          example: Login Success!
+      additionalProperties: true
+
+    ChangePasswordBody:
+      type: object
+      required:
+        - currentPassword
+        - newPassword
+      properties:
+        currentPassword:
+          type: string
+          example: yourCurrentPassword
+        newPassword:
+          type: string
+          example: yourNewPassword
+
+    ForgotPasswordBody:
+      type: object
+      required:
+        - roll
+      properties:
+        roll:
+          type: string
+          example: 2020IMG-016
+
+    ForogtPasswordResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Reset Email Sent Successful!
+
+    ResetPasswordBody:
+      type: object
+      required:
+        - roll
+        - otp
+        - newPassword
+        - confirmPassword
+      properties:
+        roll:
+          type: string
+          example: 2020IMG-016
+        otp:
+          type: number
+          example: 123456
+        newPassword:
+          type: string
+          example: aasf_iiitm
+        confirmPassword:
+          type: string
+          example: aasf_iiitm
+
+    ResetPasswordResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Password Reset Successful!
+
+    AddAdminResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Admin added successfully
+
+    RegisterBody:
+      required:
+        - fullname
+        - username
+        - email
+        - password
+        - gender
+      type: object
+      properties:
+        fullname:
+          type: string
+          example: sarvhuser
+        username:
+          type: string
+          example: user
+        email:
+          type: string
+          example: user@sarvh.com
+        password:
+          type: string
+          example: sarvh
+        gender:
+          type: string
+          example: male
+
+    UploadProduct:
+      required:
+        - productName
+        - price
+        - mrp
+        - productDescription
+        - productFeatures
+        - category
+        - subCategory
+        - file
+      type: object
+      properties:
+        productName:
+          type: string
+          example: Product Name
+        price:
+          type: number
+          example: 200
+        mrp:
+          type: number
+          example: 250
+        productDescription:
+          type: string
+          example: Product Description
+        productFeatures:
+          type: string
+          example: Product Features
+        category:
+          type: string
+          example: Men
+        subCategory:
+          type: string
+          example: Shirt
+        file:
+          type: string
+          example: [[blob1], [blob2]]
